@@ -2,23 +2,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars'); 
-var expressValidator = require('express-validator');
-var flash = require('connect-flash');
-var session = require('express-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
+let exphbs = require('express-handlebars'); 
+let expressValidator = require('express-validator');
+let flash = require('connect-flash');
+let session = require('express-session');
+let passport = require('passport');
+let LocalStrategy = require('passport-local').Strategy
+let mongo = require('mongodb');
+let mongoose = require('mongoose');
 
 
 mongoose.connect('mongodb://localhost/loginapp');
-var db = mongoose.connection;
+let db = mongoose.connection;
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+let routes = require('./routes/index');
+let users = require('./routes/users');
 
-var app = express();
+let app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
@@ -67,6 +67,7 @@ app.use(function(req, res, next){
     res.locals.success_msg = req.flash('succcess_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
     next();
 }) 
 
